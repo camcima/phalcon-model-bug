@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\DI,
-    Phalcon\Db\Adapter\Pdo\Sqlite as Connection,
+    Phalcon\Db\Adapter\Pdo\PostgreSQL as Connection,
     Phalcon\Mvc\Model\Manager as ModelsManager,
     Phalcon\Mvc\Model\Metadata\Memory as MetaData,
     Phalcon\Mvc\Model;
@@ -9,10 +9,16 @@ use Phalcon\DI,
 $di = new DI();
 
 //Setup a connection
-$di->set('db', new Connection(array(
-    "dbname" => "sample3.db"
-)));
+$di->setShared('db', function () {
+    $db = new Connection([
+        'host' => 'localhost',
+        'username' => 'postgres',
+        'password' => 'postgres',
+        'dbname' => 'phalconbug'
+    ]);
 
+    return $db;
+});
 //Set a models manager
 $di->set('modelsManager', new ModelsManager());
 

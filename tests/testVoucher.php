@@ -39,12 +39,12 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
      */
     protected function truncateTables()
     {
-        $this->db->execute("DELETE FROM vouchers");
-        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'vouchers'");
-        $this->db->execute("DELETE FROM orders");
-        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'orders'");
-        $this->db->execute("DELETE FROM users");
-        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'users'");
+        $this->db->query("DELETE FROM vouchers;");
+        $this->db->query("ALTER SEQUENCE vouchers_id_seq RESTART WITH 1;");
+        $this->db->query("DELETE FROM orders;");
+        $this->db->query("ALTER SEQUENCE orders_id_seq RESTART WITH 1;");
+        $this->db->query("DELETE FROM users;");
+        $this->db->query("ALTER SEQUENCE users_id_seq RESTART WITH 1;");
     }
 
     protected function createTestFixtures()
@@ -68,10 +68,10 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
-        
+
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
-        
+
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
         $voucher->order = $order;
@@ -80,9 +80,9 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $voucher->setAmount(12.34);
         $voucher->setCreatedAt('2014-01-03 12:00:00');
         $voucher->create();
-        
+
         $fetchVoucher = Voucher::findFirst($voucher->getId());
-        
+
         $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
         $this->assertEquals($order->getHash(), $voucher->order->getHash());
     }
@@ -91,10 +91,10 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
-        
+
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
-        
+
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
         $voucher->order = $order;
@@ -103,9 +103,9 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $voucher->setAmount(12.34);
         $voucher->setCreatedAt('2014-01-03 12:00:00');
         $voucher->create();
-        
+
         $fetchVoucher = Voucher::findFirst($voucher->getId());
-        
+
         $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
         $this->assertEquals($order->getHash(), $voucher->order->getHash());
     }
@@ -114,10 +114,10 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
-        
+
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
-        
+
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
         $voucher->order = $order;
@@ -126,9 +126,9 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $voucher->setAmount(12.34);
         $voucher->setCreatedAt('2014-01-03 12:00:00');
         $voucher->create();
-        
+
         $fetchVoucher = Voucher::findFirst($voucher->getId());
-        
+
         $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
         $this->assertEquals($order->getHash(), $voucher->order->getHash());
     }
@@ -137,10 +137,10 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
-        
+
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
-        
+
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
         $voucher->order = $order;
@@ -149,9 +149,9 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $voucher->setAmount(12.34);
         $voucher->setCreatedAt('2014-01-03 12:00:00');
         $voucher->create();
-        
+
         $fetchVoucher = Voucher::findFirst($voucher->getId());
-        
+
         $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
         $this->assertEquals($order->getHash(), $voucher->order->getHash());
     }
@@ -160,10 +160,10 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
-        
+
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
-        
+
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
         $voucher->order = $order;
@@ -172,9 +172,9 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $voucher->setAmount(12.34);
         $voucher->setCreatedAt('2014-01-03 12:00:00');
         $voucher->create();
-        
+
         $fetchVoucher = Voucher::findFirst($voucher->getId());
-        
+
         $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
         $this->assertEquals($order->getHash(), $voucher->order->getHash());
     }
