@@ -18,6 +18,7 @@ $di->set('modelsManager', new ModelsManager());
 
 //Use the memory meta-data adapter or other
 $di->set('modelsMetadata', new MetaData());
+echo get_class($di);
 
 /**
  * @property Order $order
@@ -26,6 +27,7 @@ $di->set('modelsMetadata', new MetaData());
 class Voucher extends Model
 {
     protected $id;
+    protected $hash;
     protected $code;
     protected $amount;
     protected $orderId;
@@ -47,6 +49,7 @@ class Voucher extends Model
     {
         return [
             'id' => 'id',
+            'hash' => 'hash',
             'code' => 'code',
             'amount' => 'amount',
             'order_id' => 'orderId',
@@ -61,6 +64,14 @@ class Voucher extends Model
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
     }
 
     /**
@@ -101,6 +112,14 @@ class Voucher extends Model
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
     /**
@@ -150,6 +169,7 @@ class Voucher extends Model
 class User extends Model
 {
     protected $id;
+    protected $hash;
     protected $name;
     protected $createdAt;
 
@@ -167,6 +187,7 @@ class User extends Model
     {
         return [
             'id' => 'id',
+            'hash' => 'hash',
             'name' => 'name',
             'created_at' => 'createdAt',
         ];
@@ -183,6 +204,14 @@ class User extends Model
     /**
      * @return string
      */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
@@ -194,6 +223,14 @@ class User extends Model
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
     /**
@@ -219,6 +256,7 @@ class User extends Model
 class Order extends Model
 {
     protected $id;
+    protected $hash;
     protected $orderNumber;
     protected $createdAt;
 
@@ -236,6 +274,7 @@ class Order extends Model
     {
         return [
             'id' => 'id',
+            'hash' => 'hash',
             'order_number' => 'orderNumber',
             'created_at' => 'createdAt',
         ];
@@ -247,6 +286,14 @@ class Order extends Model
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
     }
 
     /**
@@ -266,6 +313,14 @@ class Order extends Model
     }
 
     /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    }
+
+    /**
      * @param int $orderNumber
      */
     public function setOrderNumber($orderNumber)
@@ -280,50 +335,4 @@ class Order extends Model
     {
         $this->createdAt = $createdAt;
     }
-}
-$db = $di['db'];
-/* @var $db \Phalcon\Db\Adapter\Pdo\Sqlite */
-
-for ($i = 0; $i <= 50; $i++) {
-    $even = $i & 2;
-    truncateTables($db);
-
-    $user = new User();
-    $user->setName('John');
-    $user->setCreatedAt('2014-01-01 12:00:00');
-    $user->create();
-
-    $order = new Order();
-    $order->setOrderNumber(1234);
-    $order->setCreatedAt('2014-01-02 12:00:00');
-    $order->create();
-
-    $voucherCode = 'VOUCHERCODE';
-    $voucher = new Voucher();
-    $voucher->setCode($voucherCode);
-    $voucher->setAmount(12.34);
-    $voucher->setCreatedAt('2014-01-03 12:00:00');
-    if ($even) {
-        $voucher->order = $order;
-    }
-    $voucher->create();
-    
-    if (!$even) {
-        if ($voucher->order) {
-            echo 'ERROR';
-        }
-    }
-}
-
-//$vouchersInDb = $db->fetchAll('SELECT order_id FROM vouchers', PDO::FETCH_ASSOC);
-//var_dump($vouchersInDb);
-
-function truncateTables(\Phalcon\Db\Adapter\Pdo\Sqlite $db)
-{
-    $db->execute("DELETE FROM vouchers");
-    $db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'vouchers'");
-    $db->execute("DELETE FROM orders");
-    $db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'orders'");
-    $db->execute("DELETE FROM users");
-    $db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'users'");
 }
