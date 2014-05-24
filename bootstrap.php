@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\DI,
-    Phalcon\Db\Adapter\Pdo\PostgreSQL as Connection,
+    Phalcon\Db\Adapter\Pdo\MySql as Connection,
     Phalcon\Mvc\Model\Manager as ModelsManager,
     Phalcon\Mvc\Model\Metadata\Memory as MetaData,
     Phalcon\Mvc\Model;
@@ -12,8 +12,8 @@ $di = new DI();
 $di->setShared('db', function () {
     $db = new Connection([
         'host' => 'localhost',
-        'username' => 'postgres',
-        'password' => 'postgres',
+        'username' => 'root',
+        'password' => 'admin',
         'dbname' => 'phalconbug'
     ]);
 
