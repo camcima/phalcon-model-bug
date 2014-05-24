@@ -64,7 +64,7 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
         $this->fixtures[self::FIXTURE_ORDER] = $order;
     }
 
-    public function testCreateVoucher1()
+    public function testVoucherWithOrder()
     {
         $order = $this->fixtures[self::FIXTURE_ORDER];
         /* @var $order Order */
@@ -83,21 +83,16 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
 
         $fetchVoucher = Voucher::findFirst($voucher->getId());
 
-        $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
-        $this->assertEquals($order->getHash(), $voucher->order->getHash());
+        $this->assertEquals($voucher->getOrderId(), $fetchVoucher->order->getId(), '$voucher->getOrderId() should be equal to $voucher->order->getId()');
     }
 
-    public function testCreateVoucher2()
+    public function testVoucherWithoutOrder()
     {
-        $order = $this->fixtures[self::FIXTURE_ORDER];
-        /* @var $order Order */
-
         $user = $this->fixtures[self::FIXTURE_USER];
         /* @var $user User */
 
         $voucher = new Voucher();
         $voucher->setHash(md5(uniqid()));
-        $voucher->order = $order;
         $voucher->user = $user;
         $voucher->setCode('VOUCHERCODE');
         $voucher->setAmount(12.34);
@@ -106,76 +101,6 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
 
         $fetchVoucher = Voucher::findFirst($voucher->getId());
 
-        $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
-        $this->assertEquals($order->getHash(), $voucher->order->getHash());
-    }
-
-    public function testCreateVoucher3()
-    {
-        $order = $this->fixtures[self::FIXTURE_ORDER];
-        /* @var $order Order */
-
-        $user = $this->fixtures[self::FIXTURE_USER];
-        /* @var $user User */
-
-        $voucher = new Voucher();
-        $voucher->setHash(md5(uniqid()));
-        $voucher->order = $order;
-        $voucher->user = $user;
-        $voucher->setCode('VOUCHERCODE');
-        $voucher->setAmount(12.34);
-        $voucher->setCreatedAt('2014-01-03 12:00:00');
-        $voucher->create();
-
-        $fetchVoucher = Voucher::findFirst($voucher->getId());
-
-        $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
-        $this->assertEquals($order->getHash(), $voucher->order->getHash());
-    }
-
-    public function testCreateVoucher4()
-    {
-        $order = $this->fixtures[self::FIXTURE_ORDER];
-        /* @var $order Order */
-
-        $user = $this->fixtures[self::FIXTURE_USER];
-        /* @var $user User */
-
-        $voucher = new Voucher();
-        $voucher->setHash(md5(uniqid()));
-        $voucher->order = $order;
-        $voucher->user = $user;
-        $voucher->setCode('VOUCHERCODE');
-        $voucher->setAmount(12.34);
-        $voucher->setCreatedAt('2014-01-03 12:00:00');
-        $voucher->create();
-
-        $fetchVoucher = Voucher::findFirst($voucher->getId());
-
-        $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
-        $this->assertEquals($order->getHash(), $voucher->order->getHash());
-    }
-
-    public function testCreateVoucher5()
-    {
-        $order = $this->fixtures[self::FIXTURE_ORDER];
-        /* @var $order Order */
-
-        $user = $this->fixtures[self::FIXTURE_USER];
-        /* @var $user User */
-
-        $voucher = new Voucher();
-        $voucher->setHash(md5(uniqid()));
-        $voucher->order = $order;
-        $voucher->user = $user;
-        $voucher->setCode('VOUCHERCODE');
-        $voucher->setAmount(12.34);
-        $voucher->setCreatedAt('2014-01-03 12:00:00');
-        $voucher->create();
-
-        $fetchVoucher = Voucher::findFirst($voucher->getId());
-
-        $this->assertEquals($voucher->getHash(), $fetchVoucher->getHash());
-        $this->assertEquals($order->getHash(), $voucher->order->getHash());
+        $this->assertEquals($voucher->getOrderId(), $fetchVoucher->order->getId(), '$voucher->getOrderId() should be equal to $voucher->order->getId()');
     }
 }
