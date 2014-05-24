@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\DI,
-    Phalcon\Db\Adapter\Pdo\MySql as Connection,
+    Phalcon\Db\Adapter\Pdo\Sqlite as Connection,
     Phalcon\Mvc\Model\Manager as ModelsManager,
     Phalcon\Mvc\Model\Metadata\Memory as MetaData,
     Phalcon\Mvc\Model;
@@ -11,10 +11,7 @@ $di = new DI();
 //Setup a connection
 $di->setShared('db', function () {
     $db = new Connection([
-        'host' => 'localhost',
-        'username' => 'root',
-        'password' => 'admin',
-        'dbname' => 'phalconbug'
+        'dbname' => 'db/sample3.db'
     ]);
 
     return $db;

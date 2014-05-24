@@ -39,11 +39,12 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
      */
     protected function truncateTables()
     {
-        $this->db->query("SET FOREIGN_KEY_CHECKS = 0");
-        $this->db->query("TRUNCATE TABLE vouchers;");
-        $this->db->query("TRUNCATE TABLE orders;");
-        $this->db->query("TRUNCATE TABLE users;");
-        $this->db->query("SET FOREIGN_KEY_CHECKS = 1");
+        $this->db->execute("DELETE FROM vouchers");
+        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'vouchers'");
+        $this->db->execute("DELETE FROM orders");
+        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'orders'");
+        $this->db->execute("DELETE FROM users");
+        $this->db->execute("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'users'");
     }
 
     protected function createTestFixtures()
