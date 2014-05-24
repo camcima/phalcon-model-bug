@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="Phalcon Bug">
-        <directory>./tests</directory>
+    <testsuite name="Phalcon Bug Test Suite">
+        <file>./tests/testVoucher.php</file>
     </testsuite>
 </phpunit>
