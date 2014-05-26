@@ -13,7 +13,7 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
     protected $db;
 
     /**
-     * @var \Phalcon\DI 
+     * @var \Phalcon\DI
      */
     protected $di;
 
@@ -83,7 +83,7 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
 
         $fetchVoucher = Voucher::findFirst($voucher->getId());
 
-        $this->assertEquals($voucher->getOrderId(), $fetchVoucher->order->getId(), '$voucher->getOrderId() should be equal to $voucher->order->getId()');
+        $this->assertEquals($fetchVoucher->getOrderId(), $fetchVoucher->order->getId(), '$fetchVoucher->getOrderId() should be equal to $fetchVoucher->order->getId()');
     }
 
     public function testVoucherWithoutOrder()
@@ -101,6 +101,6 @@ class VoucherTest extends \PHPUnit_Framework_TestCase
 
         $fetchVoucher = Voucher::findFirst($voucher->getId());
 
-        $this->assertEquals($voucher->getOrderId(), $fetchVoucher->order->getId(), '$voucher->getOrderId() should be equal to $voucher->order->getId()');
+        $this->assertEquals($fetchVoucher->getOrderId(), $fetchVoucher->order->getId(), '$fetchVoucher->getOrderId() should be equal to $fetchVoucher->order->getId()');
     }
 }
